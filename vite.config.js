@@ -13,8 +13,8 @@ function moveOutputPlugin() {
     apply: 'build',
     async generateBundle(options, bundle) {
       for (const fileName in bundle) {
-        if (fileName.startsWith('pages/')) {
-          const newFileName = fileName.slice('pages/'.length);
+        if (fileName.startsWith('/')) {
+          const newFileName = fileName.slice('/'.length);
           bundle[fileName].fileName = newFileName;
         }
       }
@@ -41,7 +41,7 @@ export default defineConfig({
         glob
           .sync('/**/*.html')
           .map((file) => [
-            path.relative('pages', file.slice(0, file.length - path.extname(file).length)),
+            path.relative('', file.slice(0, file.length - path.extname(file).length)),
             fileURLToPath(new URL(file, import.meta.url)),
           ])
       ),
